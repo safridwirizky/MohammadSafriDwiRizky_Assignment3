@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Status Monitor</title>
+	<script>
+		function getStatus() {
+			fetch('/status')
+				.then(response => response.json())
+				.then(data => {
+					document.getElementById('water').textContent = data.status.water;
+					document.getElementById('wind').textContent = data.status.wind;
+			});
+		}
+
+		setInterval(getStatus, 15000); // Update every 15 seconds
+
+		function determineStatus(value) {
+			if (value < 5) {
+				return 'Aman';
+			} else if (value >= 6 && value <= 8) {
+				return 'Siaga';
+			} else {
+				return 'Bahaya';
+			}
+		}
+
+		
+
+setInterval(getStatus, 15000); // Update every 15 seconds
+
+	</script>
+</head>
+<body onload="getStatus()">
+	<h1>Status Monitor</h1>
+	<p>Water: <span id="water"></span></p>
+	<p>Wind: <span id="wind"></span></p>
+</body>
+</html>
+
